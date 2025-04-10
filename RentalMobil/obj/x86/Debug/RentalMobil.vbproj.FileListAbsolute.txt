@@ -1,0 +1,12 @@
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\bin\Debug\RentalMobil.exe
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\bin\Debug\RentalMobil.pdb
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\bin\Debug\RentalMobil.xml
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.Resources.resources
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.vbproj.GenerateResource.Cache
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.exe
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.xml
+c:\users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.pdb
+C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormMain.resources
+C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormRental.resources
+C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormMobil.resources
+C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormLogin.resources
