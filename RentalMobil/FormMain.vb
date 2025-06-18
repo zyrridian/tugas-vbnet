@@ -1,9 +1,40 @@
-﻿Public Class FormMain
+﻿Imports MySql.Data.MySqlClient
+
+Public Class FormMain
+    ' Username user yang sedang login
+    Public Shared LoggedInUsername As String = "admin"
+    Public Shared LoggedInUserRole As String = "Administrator"
+
+    ' Status database
+    Private dbConnected As Boolean = False
 
     ' Event saat FormMain dimuat pertama kali
     Private Sub FormMain_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Menonaktifkan tombol maximize pada form
         Me.MaximizeBox = False
+
+        ' Cek koneksi database dan update status
+        CheckDatabaseConnection()
+
+        ' Tampilkan informasi user yang login
+        lblUserInfo.Text = "User: " & LoggedInUsername & " (" & LoggedInUserRole & ")"
+    End Sub
+
+    ' Method untuk memeriksa koneksi database
+    Private Sub CheckDatabaseConnection()
+        Try
+            Dim conn As MySqlConnection = ModuleConnection.OpenConnection()
+            If conn IsNot Nothing Then
+                dbConnected = True
+                lblDbStatus.Text = "Database: Connected"
+                lblDbStatus.ForeColor = System.Drawing.Color.Green
+                ModuleConnection.CloseConnection()
+            End If
+        Catch ex As Exception
+            dbConnected = False
+            lblDbStatus.Text = "Database: Disconnected"
+            lblDbStatus.ForeColor = System.Drawing.Color.Red
+        End Try
     End Sub
 
     ' ======================
@@ -22,19 +53,22 @@
         form.ShowDialog()
     End Sub
 
-    ' Tombol untuk fitur pembayaran (belum tersedia)
-    Private Sub btnPayments_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPayments.Click
-        MessageBox.Show("Fitur ini akan tersedia segera!", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    ' Tombol untuk fitur kelola pelanggan
+    Private Sub btnManageCustomer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnManageCustomer.Click
+        Dim form As New FormCustomer()
+        form.ShowDialog()
     End Sub
 
-    ' Tombol untuk melihat daftar penyewaan (belum tersedia)
+    ' Tombol untuk melihat daftar penyewaan
     Private Sub btnRentalList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRentalList.Click
-        MessageBox.Show("Fitur ini akan tersedia segera!", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Dim form As New FormRentalList()
+        form.ShowDialog()
     End Sub
 
-    ' Tombol untuk melihat laporan (belum tersedia)
+    ' Tombol untuk melihat laporan
     Private Sub btnReports_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReports.Click
-        MessageBox.Show("Fitur ini akan tersedia segera!", "Coming Soon", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Dim form As New FormReport()
+        form.ShowDialog()
     End Sub
 
     ' =========================
@@ -46,18 +80,22 @@
         Dim result As DialogResult = MessageBox.Show("Apakah Anda yakin ingin logout?", "Konfirmasi Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
 
         If result = DialogResult.Yes Then
-            ' Tutup FormRental jika sedang terbuka
-            If Application.OpenForms().OfType(Of FormRental)().Any() Then
-                Application.OpenForms("FormRental").Close()
-            End If
+            ' Tutup semua form yang mungkin sedang terbuka
+            For Each form As Form In Application.OpenForms
+                If form IsNot Me AndAlso form IsNot FormLogin Then
+                    form.Close()
+                End If
+            Next
 
-            ' Tutup FormMobil jika sedang terbuka
-            If Application.OpenForms().OfType(Of FormMobil)().Any() Then
-                Application.OpenForms("FormMobil").Close()
-            End If
+            ' Reset variable user yang login
+            LoggedInUsername = ""
+            LoggedInUserRole = ""
 
-            FormLogin.Show() ' Tampilkan kembali form login
-            Me.Close()       ' Tutup form utama
+            ' Tampilkan form login
+            FormLogin.Show()
+
+            ' Tutup form utama
+            Me.Close()
         End If
     End Sub
 
