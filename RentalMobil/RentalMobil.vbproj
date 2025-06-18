@@ -133,12 +133,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="FormPayment.Designer.vb">
-      <DependentUpon>FormPayment.vb</DependentUpon>
-    </Compile>
-    <Compile Include="FormPayment.vb">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormCustomer.resx">
@@ -167,9 +161,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormPayment.resx">
-      <DependentUpon>FormPayment.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

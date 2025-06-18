@@ -59,7 +59,7 @@ Partial Class FormRentalList
         '
         'pnlHeader
         '
-        Me.pnlHeader.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.pnlHeader.Controls.Add(Me.lblTitle)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
@@ -110,7 +110,7 @@ Partial Class FormRentalList
         '
         'btnReturn
         '
-        Me.btnReturn.BackColor = System.Drawing.Color.FromArgb(CType(CType(40, Byte), Integer), CType(CType(167, Byte), Integer), CType(CType(69, Byte), Integer))
+        Me.btnReturn.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
         Me.btnReturn.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnReturn.FlatAppearance.BorderSize = 0
         Me.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat

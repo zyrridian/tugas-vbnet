@@ -1,17 +1,17 @@
-﻿Public Class FormCustomer
+﻿Imports MySql.Data.MySqlClient
 
-    ' List untuk menyimpan data customer
-    Public Shared DaftarCustomer As New List(Of String)
+Public Class FormCustomer
 
-    ' ID untuk customer (untuk keperluan identifikasi)
-    Private currentID As Integer = 1
+    ' Variable untuk menyimpan ID customer yang sedang diedit
+    Private currentID As Integer = 0
+    Private isEditMode As Boolean = False
 
     ' Event saat FormCustomer dimuat
     Private Sub FormCustomer_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         ' Reset field input saat form dibuka
         ClearInputs()
 
-        ' Load data dari list global ke DataGridView
+        ' Load data dari database ke DataGridView
         RefreshDataGridView()
     End Sub
 
@@ -21,6 +21,8 @@
         txtTelepon.Clear()
         txtEmail.Clear()
         txtAlamat.Clear()
+        currentID = 0
+        isEditMode = False
 
         ' Fokus ke field pertama
         txtNama.Focus()
@@ -30,25 +32,27 @@
     Private Sub RefreshDataGridView()
         dgvCustomer.Rows.Clear()
 
-        ' Jika ada data customer di list global, tampilkan di DataGridView
-        Dim index As Integer = 1
-        For Each customer As String In DaftarCustomer
-            Dim parts As String() = customer.Split(New Char() {"|"c})
-            If parts.Length >= 4 Then
-                ' Format: "Nama|Telepon|Email|Alamat"
-                Dim nama As String = parts(0).Trim()
-                Dim telepon As String = parts(1).Trim()
-                Dim email As String = parts(2).Trim()
-                Dim alamat As String = parts(3).Trim()
+        Try
+            ' Query untuk mengambil semua data pelanggan
+            Dim query As String = "SELECT * FROM pelanggan ORDER BY id ASC"
+            Dim dt As DataTable = ModuleConnection.ExecuteQuery(query)
+
+            ' Jika ada data, tampilkan di DataGridView
+            Dim index As Integer = 1
+            For Each row As DataRow In dt.Rows
+                Dim id As Integer = Convert.ToInt32(row("id"))
+                Dim nama As String = row("nama").ToString()
+                Dim telepon As String = row("nomor_telepon").ToString()
+                Dim email As String = "" ' Email tidak ada di tabel pelanggan
+                Dim alamat As String = If(row("alamat") IsNot DBNull.Value, row("alamat").ToString(), "")
 
                 ' Tambahkan ke DataGridView
                 dgvCustomer.Rows.Add(index, nama, telepon, email, alamat)
                 index += 1
-            End If
-        Next
-
-        ' Update currentID
-        currentID = Math.Max(1, DaftarCustomer.Count + 1)
+            Next
+        Catch ex As Exception
+            MessageBox.Show("Error loading data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' Event saat tombol Simpan diklik
@@ -60,30 +64,64 @@
         End If
 
         ' Validasi format email (basic)
-        If Not String.IsNullOrEmpty(txtEmail.Text.Trim()) AndAlso Not txtEmail.Text.Contains("@") Then
+        Dim email As String = txtEmail.Text.Trim()
+        If Not String.IsNullOrEmpty(email) AndAlso Not email.Contains("@") Then
             MessageBox.Show("Format email tidak valid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             txtEmail.Focus()
             Return
         End If
 
-        ' Format data customer menjadi satu string
-        Dim dataCustomer As String = String.Format("{0}|{1}|{2}|{3}",
-                                                  txtNama.Text.Trim(),
-                                                  txtTelepon.Text.Trim(),
-                                                  txtEmail.Text.Trim(),
-                                                  txtAlamat.Text.Trim())
+        ' Validasi nomor telepon unik
+        Dim nomorTelepon As String = txtTelepon.Text.Trim()
+        Dim parameters As New Dictionary(Of String, Object)
+        parameters.Add("@telepon", nomorTelepon)
 
-        ' Simpan data ke list global
-        DaftarCustomer.Add(dataCustomer)
+        Dim whereClause As String = ""
+        If isEditMode Then
+            whereClause = " AND id <> @id"
+            parameters.Add("@id", currentID)
+        End If
 
-        ' Refresh DataGridView
-        RefreshDataGridView()
+        Dim checkQuery As String = "SELECT COUNT(*) FROM pelanggan WHERE nomor_telepon = @telepon" & whereClause
+        Dim count As Integer = Convert.ToInt32(ModuleConnection.ExecuteScalar(checkQuery, parameters))
 
-        ' Tampilkan pesan sukses
-        MessageBox.Show("Data pelanggan berhasil disimpan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        If count > 0 Then
+            MessageBox.Show("Nomor telepon ini sudah terdaftar!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            txtTelepon.Focus()
+            Return
+        End If
 
-        ' Reset semua field input agar siap untuk input berikutnya
-        ClearInputs()
+        Try
+            ' Siapkan parameter untuk query
+            Dim queryParams As New Dictionary(Of String, Object)
+            queryParams.Add("@nama", txtNama.Text.Trim())
+            queryParams.Add("@telepon", nomorTelepon)
+            queryParams.Add("@email", email)
+            queryParams.Add("@alamat", txtAlamat.Text.Trim())
+
+            If isEditMode Then
+                ' Update data di database
+                Dim updateQuery As String = "UPDATE pelanggan SET nama = @nama, nomor_telepon = @telepon, email = @email, alamat = @alamat WHERE id = @id"
+                queryParams.Add("@id", currentID)
+                ModuleConnection.ExecuteNonQuery(updateQuery, queryParams)
+
+                MessageBox.Show("Data pelanggan berhasil diupdate!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                ' Simpan data baru ke database
+                Dim insertQuery As String = "INSERT INTO pelanggan (nama, nomor_telepon, email, alamat) VALUES (@nama, @telepon, @email, @alamat)"
+                ModuleConnection.ExecuteNonQuery(insertQuery, queryParams)
+
+                MessageBox.Show("Data pelanggan berhasil disimpan!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            ' Refresh DataGridView
+            RefreshDataGridView()
+
+            ' Reset semua field input agar siap untuk input berikutnya
+            ClearInputs()
+        Catch ex As Exception
+            MessageBox.Show("Error saving data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' Event saat tombol Hapus diklik
@@ -97,23 +135,50 @@
         ' Ambil index baris yang dipilih
         Dim selectedIndex As Integer = dgvCustomer.SelectedRows(0).Index
 
-        ' Verifikasi bahwa index valid
-        If selectedIndex < 0 OrElse selectedIndex >= DaftarCustomer.Count Then
-            MessageBox.Show("Pilihan tidak valid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return
-        End If
+        ' Dapatkan ID customer dari database
+        Try
+            Dim query As String = "SELECT id FROM pelanggan ORDER BY id ASC"
+            Dim dt As DataTable = ModuleConnection.ExecuteQuery(query)
 
-        ' Konfirmasi penghapusan
-        Dim result As DialogResult = MessageBox.Show("Apakah Anda yakin ingin menghapus data pelanggan ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.Yes Then
-            ' Hapus dari list global
-            DaftarCustomer.RemoveAt(selectedIndex)
+            If selectedIndex >= dt.Rows.Count Then
+                MessageBox.Show("Pilihan tidak valid!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return
+            End If
 
-            ' Refresh DataGridView
-            RefreshDataGridView()
+            Dim customerId As Integer = Convert.ToInt32(dt.Rows(selectedIndex)("id"))
 
-            MessageBox.Show("Data pelanggan berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        End If
+            ' Konfirmasi penghapusan
+            Dim result As DialogResult = MessageBox.Show("Apakah Anda yakin ingin menghapus data pelanggan ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result = DialogResult.Yes Then
+                ' Cek apakah pelanggan sedang memiliki penyewaan aktif
+                Dim checkQuery As String = "SELECT COUNT(*) FROM rental WHERE pelanggan_id = @id AND status = 'Active'"
+                Dim parameters As New Dictionary(Of String, Object)
+                parameters.Add("@id", customerId)
+
+                Dim rentalCount As Integer = 0
+                Try
+                    rentalCount = Convert.ToInt32(ModuleConnection.ExecuteScalar(checkQuery, parameters))
+                Catch ex As Exception
+                    ' Tabel rental mungkin belum ada, abaikan error
+                End Try
+
+                If rentalCount > 0 Then
+                    MessageBox.Show("Pelanggan ini memiliki penyewaan aktif. Tidak dapat dihapus!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return
+                End If
+
+                ' Hapus dari database
+                Dim deleteQuery As String = "DELETE FROM pelanggan WHERE id = @id"
+                ModuleConnection.ExecuteNonQuery(deleteQuery, parameters)
+
+                ' Refresh DataGridView
+                RefreshDataGridView()
+
+                MessageBox.Show("Data pelanggan berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error deleting data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' Event saat tombol Tutup diklik
@@ -127,18 +192,29 @@
         ' Periksa apakah klik pada header atau di luar baris yang valid
         If e.RowIndex < 0 Then Return
 
-        ' Periksa apakah index valid
-        If e.RowIndex >= DaftarCustomer.Count Then Return
+        Try
+            ' Dapatkan ID pelanggan dari database
+            Dim query As String = "SELECT * FROM pelanggan ORDER BY id ASC"
+            Dim dt As DataTable = ModuleConnection.ExecuteQuery(query)
 
-        ' Ambil data dari baris yang dipilih
-        Dim parts As String() = DaftarCustomer(e.RowIndex).Split(New Char() {"|"c})
-        If parts.Length >= 4 Then
+            ' Periksa apakah index valid
+            If e.RowIndex >= dt.Rows.Count Then Return
+
+            ' Set mode edit
+            isEditMode = True
+
+            ' Ambil data dari baris yang dipilih di database
+            Dim row As DataRow = dt.Rows(e.RowIndex)
+            currentID = Convert.ToInt32(row("id"))
+
             ' Isi form dengan data yang dipilih
-            txtNama.Text = parts(0).Trim()
-            txtTelepon.Text = parts(1).Trim()
-            txtEmail.Text = parts(2).Trim()
-            txtAlamat.Text = parts(3).Trim()
-        End If
+            txtNama.Text = row("nama").ToString()
+            txtTelepon.Text = row("nomor_telepon").ToString()
+            txtEmail.Text = "" ' Email tidak ada di database
+            txtAlamat.Text = If(row("alamat") IsNot DBNull.Value, row("alamat").ToString(), "")
+        Catch ex As Exception
+            MessageBox.Show("Error loading selected data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     ' Validasi input hanya angka dan karakter khusus telepon untuk field Telepon

@@ -73,8 +73,9 @@ Public Class FormRental
             cmbMobil.ValueMember = "Value"
 
             ' Pilih item pertama
-            cmbMobil.SelectedIndex = 0
-
+            If cmbMobil.Items.Count > 0 Then
+                cmbMobil.SelectedIndex = 0
+            End If
         Catch ex As Exception
             ' Jika terjadi error, gunakan data default
             MessageBox.Show("Error loading car data: " & ex.Message & vbCrLf & "Using default data instead.",
@@ -85,6 +86,47 @@ Public Class FormRental
 
             ' Pilih item pertama
             cmbMobil.SelectedIndex = 0
+        End Try
+    End Sub
+
+    ' Fungsi untuk mengisi dropdown pelanggan dari database
+    Private Sub IsiDataPelanggan()
+        ' Clear existing items
+        cmbPelanggan.Items.Clear()
+        cmbPelanggan.ValueMember = "ID"
+        cmbPelanggan.DisplayMember = "Nama"
+
+        Try
+            ' Query untuk mendapatkan data pelanggan
+            Dim query As String = "SELECT id, CONCAT(nama, ' (', nomor_telepon, ')') AS nama_pelanggan " & _
+                                 "FROM pelanggan ORDER BY nama ASC"
+
+            ' Eksekusi query dan simpan hasilnya ke dalam DataTable
+            Dim dt As DataTable = ModuleConnection.ExecuteQuery(query)
+
+            ' Jika tidak ada data, keluar dari sub
+            If dt.Rows.Count = 0 Then Exit Sub
+
+            ' Tambahkan setiap baris data ke combobox
+            For Each row As DataRow In dt.Rows
+                cmbPelanggan.Items.Add(New With {
+                    .Text = row("nama_pelanggan").ToString(),
+                    .Value = Convert.ToInt32(row("id"))
+                })
+            Next
+
+            ' Atur properti DisplayMember dan ValueMember
+            cmbPelanggan.DisplayMember = "Text"
+            cmbPelanggan.ValueMember = "Value"
+
+            ' Pilih item pertama jika ada
+            If cmbPelanggan.Items.Count > 0 Then
+                cmbPelanggan.SelectedIndex = 0
+            End If
+        Catch ex As Exception
+            ' Jika terjadi error, tampilkan pesan
+            MessageBox.Show("Error loading customer data: " & ex.Message,
+                            "Database Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End Try
     End Sub
 
@@ -114,36 +156,18 @@ Public Class FormRental
         End If
     End Sub
 
-    ' Fungsi untuk memeriksa atau membuat data pelanggan berdasarkan nama dan telepon
-    Private Function GetOrCreateCustomer(ByVal nama As String, ByVal telepon As String) As Integer
-        Try
-            ' Cek apakah pelanggan sudah ada
-            Dim checkQuery As String = "SELECT id FROM pelanggan WHERE nama = @nama AND nomor_telepon = @telepon"
-            Dim parameters As New Dictionary(Of String, Object)
-            parameters.Add("@nama", nama)
-            parameters.Add("@telepon", telepon)
-            
-            Dim existingId As Object = ModuleConnection.ExecuteScalar(checkQuery, parameters)
-            
-            If existingId IsNot Nothing Then
-                ' Pelanggan sudah ada
-                Return Convert.ToInt32(existingId)
-            Else
-                ' Buat pelanggan baru
-                Dim insertQuery As String = "INSERT INTO pelanggan (nama, nomor_telepon, alamat) VALUES (@nama, @telepon, @alamat)"
-                Dim insertParams As New Dictionary(Of String, Object)
-                insertParams.Add("@nama", nama)
-                insertParams.Add("@telepon", telepon)
-                insertParams.Add("@alamat", "")  ' Default empty alamat
-                
-                ModuleConnection.ExecuteNonQuery(insertQuery, insertParams)
-                Return ModuleConnection.GetLastInsertedId()
-            End If
-        Catch ex As Exception
-            MessageBox.Show("Error processing customer data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return 0
-        End Try
-    End Function
+    ' Event saat pelanggan dipilih di combobox
+    Private Sub cmbPelanggan_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+        If cmbPelanggan.SelectedItem IsNot Nothing Then
+            Try
+                ' Ambil ID pelanggan yang dipilih
+                Dim selectedItem = cmbPelanggan.SelectedItem
+                selectedCustomerId = selectedItem.Value
+            Catch ex As Exception
+                selectedCustomerId = 0
+            End Try
+        End If
+    End Sub
 
     ' Event saat FormRental pertama kali dimuat
     Private Sub FormRental_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -152,8 +176,9 @@ Public Class FormRental
         ' Atur tanggal kembali ke besok
         dtpKembali.Value = Date.Today.AddDays(1)
 
-        ' Isi ComboBox mobil dan metode pembayaran
+        ' Isi ComboBox mobil, pelanggan, dan metode pembayaran
         IsiDataMobil()
+        IsiDataPelanggan()
         cmbPembayaran.Items.AddRange(New String() {"Cash", "Transfer Bank", "QRIS", "Kartu Kredit"})
         cmbPembayaran.SelectedIndex = 0
 
@@ -184,31 +209,17 @@ Public Class FormRental
         End If
     End Sub
 
-    ' Validasi inputan numerik untuk txtTelp
-    Private Sub txtTelp_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtTelp.KeyPress
-        ' Hanya terima angka dan tombol kontrol seperti backspace
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
-
     ' Event saat tombol Proses diklik
     Private Sub btnProses_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnProses.Click
         ' Validasi: form harus diisi
-        If String.IsNullOrWhiteSpace(txtNama.Text) Then
-            MessageBox.Show("Nama pelanggan harus diisi.", "Data Tidak Lengkap", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtNama.Focus()
-            Exit Sub
-        End If
-
-        If String.IsNullOrWhiteSpace(txtTelp.Text) Then
-            MessageBox.Show("Nomor telepon harus diisi.", "Data Tidak Lengkap", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            txtTelp.Focus()
+        If cmbPelanggan.SelectedIndex = -1 Then
+            MessageBox.Show("Silakan pilih pelanggan terlebih dahulu.", "Data Tidak Lengkap", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            cmbPelanggan.Focus()
             Exit Sub
         End If
 
         If cmbMobil.SelectedIndex = -1 Then
-            MessageBox.Show("Mobil harus dipilih.", "Data Tidak Lengkap", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show("Silakan pilih mobil terlebih dahulu.", "Data Tidak Lengkap", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             cmbMobil.Focus()
             Exit Sub
         End If
@@ -246,21 +257,24 @@ Public Class FormRental
             Exit Sub
         End If
 
+        ' Pastikan ID mobil dan pelanggan valid
+        If selectedMobilId <= 0 Then
+            MessageBox.Show("Error: Mobil tidak valid atau tidak tersedia. Silakan pilih mobil lain.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
+        If selectedCustomerId <= 0 Then
+            MessageBox.Show("Error: Pelanggan tidak valid. Silakan pilih pelanggan lain.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Exit Sub
+        End If
+
         ' Ambil semua data dari form
-        Dim nama As String = txtNama.Text.Trim()
-        Dim telp As String = txtTelp.Text.Trim()
+        Dim pelangganDisplay As String = If(cmbPelanggan.SelectedItem IsNot Nothing, cmbPelanggan.SelectedItem.Text, "-")
         Dim mobil As String = If(cmbMobil.SelectedItem IsNot Nothing, cmbMobil.SelectedItem.Text, "-")
         Dim hargaPerHari As Decimal = Decimal.Parse(txtHargaPerhari.Text.Trim())
         Dim totalBiaya As Decimal = hargaPerHari * lamaSewa
         Dim pembayaran As String = If(cmbPembayaran.SelectedItem IsNot Nothing, cmbPembayaran.SelectedItem.ToString(), "-")
         Dim catatan As String = txtCatatan.Text.Trim()
-
-        ' Pastikan mobil_id valid
-        If selectedMobilId <= 0 Then
-            ' Jika tidak bisa mendapatkan ID mobil, beri pesan error
-            MessageBox.Show("Error: Mobil tidak valid atau tidak tersedia. Silakan pilih mobil lain.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Exit Sub
-        End If
 
         ' Tampilkan konfirmasi
         Dim result As DialogResult = MessageBox.Show("Apakah Anda yakin ingin memproses data ini?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -268,19 +282,11 @@ Public Class FormRental
         ' Jika dikonfirmasi, simpan ke database
         If result = DialogResult.Yes Then
             Try
-                ' Dapatkan atau buat data pelanggan
-                selectedCustomerId = GetOrCreateCustomer(nama, telp)
-                
-                If selectedCustomerId <= 0 Then
-                    MessageBox.Show("Gagal menyimpan data pelanggan.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                    Exit Sub
-                End If
-                
                 ' Simpan data rental ke database
                 Dim insertQuery As String = "INSERT INTO rental (pelanggan_id, mobil_id, tanggal_sewa, tanggal_kembali, " & _
-                                          "lama_sewa, harga_perhari, total_biaya, metode_pembayaran, catatan, status) " & _
-                                          "VALUES (@customer, @mobil, @tgl_sewa, @tgl_kembali, @durasi, @harga, @total, " & _
-                                          "@pembayaran, @catatan, 'Active')"
+                                           "lama_sewa, harga_perhari, total_biaya, metode_pembayaran, catatan, status) " & _
+                                           "VALUES (@customer, @mobil, @tgl_sewa, @tgl_kembali, @durasi, @harga, @total, " & _
+                                           "@pembayaran, @catatan, 'Active')"
                 
                 Dim parameters As New Dictionary(Of String, Object)
                 parameters.Add("@customer", selectedCustomerId)
@@ -303,18 +309,16 @@ Public Class FormRental
                 
                 Dim detail As String = String.Format(
                     "Detail Data Penyewaan:" & vbCrLf &
-                    "Nama         : {0}" & vbCrLf &
-                    "Telepon      : {1}" & vbCrLf &
-                    "Mobil        : {2}" & vbCrLf &
-                    "Tgl Sewa     : {3}" & vbCrLf &
-                    "Tgl Kembali  : {4}" & vbCrLf &
-                    "Lama Sewa    : {5} Hari" & vbCrLf &
-                    "Harga/Hari   : Rp {6}" & vbCrLf &
-                    "Total Biaya  : Rp {7}" & vbCrLf &
-                    "Pembayaran   : {8}" & vbCrLf &
-                    "Catatan      : {9}",
-                    nama,
-                    telp,
+                    "Pelanggan    : {0}" & vbCrLf &
+                    "Mobil        : {1}" & vbCrLf &
+                    "Tgl Sewa     : {2}" & vbCrLf &
+                    "Tgl Kembali  : {3}" & vbCrLf &
+                    "Lama Sewa    : {4} Hari" & vbCrLf &
+                    "Harga/Hari   : Rp {5}" & vbCrLf &
+                    "Total Biaya  : Rp {6}" & vbCrLf &
+                    "Pembayaran   : {7}" & vbCrLf &
+                    "Catatan      : {8}",
+                    pelangganDisplay,
                     mobil,
                     tglSewa.ToShortDateString(),
                     tglKembali.ToShortDateString(),
@@ -340,9 +344,6 @@ Public Class FormRental
 
     ' Reset semua field form ke keadaan awal
     Private Sub ResetForm()
-        txtNama.Clear()
-        txtTelp.Clear()
-        
         ' Atur tanggal sewa ke hari ini
         dtpSewa.Value = Date.Today
         ' Atur tanggal kembali ke besok
@@ -351,6 +352,10 @@ Public Class FormRental
         ' Reset combobox
         If cmbMobil.Items.Count > 0 Then
             cmbMobil.SelectedIndex = 0
+        End If
+        
+        If cmbPelanggan.Items.Count > 0 Then
+            cmbPelanggan.SelectedIndex = 0
         End If
         
         If cmbPembayaran.Items.Count > 0 Then
@@ -363,15 +368,12 @@ Public Class FormRental
         ' Reset ID
         selectedMobilId = 0
         selectedCustomerId = 0
-        
-        ' Set focus ke nama
-        txtNama.Focus()
     End Sub
 
     ' Event saat tombol Batal diklik
     Private Sub btnBatal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBatal.Click
         ' Tanyakan konfirmasi jika ada data yang sudah diisi
-        If Not String.IsNullOrWhiteSpace(txtNama.Text) OrElse Not String.IsNullOrWhiteSpace(txtTelp.Text) OrElse Not String.IsNullOrWhiteSpace(txtCatatan.Text) Then
+        If Not String.IsNullOrWhiteSpace(txtCatatan.Text) Then
             Dim result As DialogResult = MessageBox.Show("Apakah Anda yakin ingin membatalkan? Data yang telah diisi akan hilang.", "Konfirmasi Batal", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
             If result = DialogResult.No Then
                 Exit Sub
@@ -381,4 +383,7 @@ Public Class FormRental
         Me.Close()
     End Sub
 
+    Private Sub Label4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label4.Click
+
+    End Sub
 End Class

@@ -22,9 +22,9 @@ Partial Class FormReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.pnlHeader = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.tabReport = New System.Windows.Forms.TabControl()
@@ -66,7 +66,7 @@ Partial Class FormReport
         '
         'pnlHeader
         '
-        Me.pnlHeader.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.pnlHeader.Controls.Add(Me.lblTitle)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
@@ -187,7 +187,7 @@ Partial Class FormReport
         '
         'btnFilter
         '
-        Me.btnFilter.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.btnFilter.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btnFilter.FlatAppearance.BorderSize = 0
         Me.btnFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnFilter.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
@@ -242,25 +242,25 @@ Partial Class FormReport
         Me.tabReportGrafik.Location = New System.Drawing.Point(4, 26)
         Me.tabReportGrafik.Name = "tabReportGrafik"
         Me.tabReportGrafik.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabReportGrafik.Size = New System.Drawing.Size(876, 451)
+        Me.tabReportGrafik.Size = New System.Drawing.Size(876, 391)
         Me.tabReportGrafik.TabIndex = 1
         Me.tabReportGrafik.Text = "Grafik Pendapatan"
         Me.tabReportGrafik.UseVisualStyleBackColor = True
         '
         'chartPendapatan
         '
-        ChartArea3.Name = "ChartArea1"
-        Me.chartPendapatan.ChartAreas.Add(ChartArea3)
+        ChartArea2.Name = "ChartArea1"
+        Me.chartPendapatan.ChartAreas.Add(ChartArea2)
         Me.chartPendapatan.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend3.Name = "Legend1"
-        Me.chartPendapatan.Legends.Add(Legend3)
+        Legend2.Name = "Legend1"
+        Me.chartPendapatan.Legends.Add(Legend2)
         Me.chartPendapatan.Location = New System.Drawing.Point(3, 83)
         Me.chartPendapatan.Name = "chartPendapatan"
-        Series3.ChartArea = "ChartArea1"
-        Series3.Legend = "Legend1"
-        Series3.Name = "Pendapatan"
-        Me.chartPendapatan.Series.Add(Series3)
-        Me.chartPendapatan.Size = New System.Drawing.Size(870, 365)
+        Series2.ChartArea = "ChartArea1"
+        Series2.Legend = "Legend1"
+        Series2.Name = "Pendapatan"
+        Me.chartPendapatan.Series.Add(Series2)
+        Me.chartPendapatan.Size = New System.Drawing.Size(870, 305)
         Me.chartPendapatan.TabIndex = 1
         Me.chartPendapatan.Text = "Grafik Pendapatan"
         '
@@ -325,7 +325,7 @@ Partial Class FormReport
         '
         Me.lblTotal.AutoSize = True
         Me.lblTotal.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTotal.ForeColor = System.Drawing.Color.DeepSkyBlue
+        Me.lblTotal.ForeColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.lblTotal.Location = New System.Drawing.Point(25, 19)
         Me.lblTotal.Name = "lblTotal"
         Me.lblTotal.Size = New System.Drawing.Size(189, 21)
@@ -335,7 +335,7 @@ Partial Class FormReport
         'btnPrint
         '
         Me.btnPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnPrint.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.btnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btnPrint.FlatAppearance.BorderSize = 0
         Me.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPrint.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)

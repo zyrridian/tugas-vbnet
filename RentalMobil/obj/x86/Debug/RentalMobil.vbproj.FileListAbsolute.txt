@@ -10,7 +10,6 @@ C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj
 C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormRental.resources
 C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormMobil.resources
 C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormLogin.resources
-C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormPayment.resources
 C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormRentalList.resources
 C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormCustomer.resources
 C:\Users\ptnia\documents\visual studio 2010\Projects\RentalMobil\RentalMobil\obj\x86\Debug\RentalMobil.FormReport.resources

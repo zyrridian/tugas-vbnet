@@ -22,9 +22,9 @@ Partial Class FormMobil
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -35,16 +35,6 @@ Partial Class FormMobil
         Me.txtHarga = New System.Windows.Forms.TextBox()
         Me.btnSimpan = New System.Windows.Forms.Button()
         Me.dgvMobil = New System.Windows.Forms.DataGridView()
-        Me.btnBatal = New System.Windows.Forms.Button()
-        Me.pnlHeader = New System.Windows.Forms.Panel()
-        Me.lblTitle = New System.Windows.Forms.Label()
-        Me.pnlFooter = New System.Windows.Forms.Panel()
-        Me.btnHapus = New System.Windows.Forms.Button()
-        Me.pnlForm = New System.Windows.Forms.Panel()
-        Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtPlat = New System.Windows.Forms.TextBox()
-        Me.txtModel = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.colID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colMerk = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colModel = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -52,6 +42,16 @@ Partial Class FormMobil
         Me.colPlat = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colTahun = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colHarga = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.btnBatal = New System.Windows.Forms.Button()
+        Me.pnlHeader = New System.Windows.Forms.Panel()
+        Me.lblTitle = New System.Windows.Forms.Label()
+        Me.pnlFooter = New System.Windows.Forms.Panel()
+        Me.btnHapus = New System.Windows.Forms.Button()
+        Me.pnlForm = New System.Windows.Forms.Panel()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtModel = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtPlat = New System.Windows.Forms.TextBox()
         CType(Me.dgvMobil, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlHeader.SuspendLayout()
         Me.pnlFooter.SuspendLayout()
@@ -138,7 +138,7 @@ Partial Class FormMobil
         '
         'btnSimpan
         '
-        Me.btnSimpan.BackColor = System.Drawing.Color.DarkGreen
+        Me.btnSimpan.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
         Me.btnSimpan.FlatAppearance.BorderSize = 0
         Me.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSimpan.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -158,39 +158,83 @@ Partial Class FormMobil
                     Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvMobil.BackgroundColor = System.Drawing.Color.White
         Me.dgvMobil.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvMobil.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMobil.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvMobil.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMobil.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colID, Me.colMerk, Me.colModel, Me.colTipe, Me.colPlat, Me.colTahun, Me.colHarga})
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvMobil.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvMobil.DefaultCellStyle = DataGridViewCellStyle5
         Me.dgvMobil.GridColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.dgvMobil.Location = New System.Drawing.Point(20, 331)
         Me.dgvMobil.Name = "dgvMobil"
         Me.dgvMobil.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvMobil.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvMobil.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.dgvMobil.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvMobil.Size = New System.Drawing.Size(650, 269)
         Me.dgvMobil.TabIndex = 0
+        '
+        'colID
+        '
+        Me.colID.HeaderText = "ID"
+        Me.colID.Name = "colID"
+        Me.colID.ReadOnly = True
+        Me.colID.Width = 50
+        '
+        'colMerk
+        '
+        Me.colMerk.HeaderText = "Merk Mobil"
+        Me.colMerk.Name = "colMerk"
+        Me.colMerk.ReadOnly = True
+        '
+        'colModel
+        '
+        Me.colModel.HeaderText = "Model Mobil"
+        Me.colModel.Name = "colModel"
+        Me.colModel.ReadOnly = True
+        '
+        'colTipe
+        '
+        Me.colTipe.HeaderText = "Tipe Mobil"
+        Me.colTipe.Name = "colTipe"
+        Me.colTipe.ReadOnly = True
+        '
+        'colPlat
+        '
+        Me.colPlat.HeaderText = "Nomor Polisi"
+        Me.colPlat.Name = "colPlat"
+        Me.colPlat.ReadOnly = True
+        '
+        'colTahun
+        '
+        Me.colTahun.HeaderText = "Tahun"
+        Me.colTahun.Name = "colTahun"
+        Me.colTahun.ReadOnly = True
+        Me.colTahun.Width = 60
+        '
+        'colHarga
+        '
+        Me.colHarga.HeaderText = "Harga/Hari"
+        Me.colHarga.Name = "colHarga"
+        Me.colHarga.ReadOnly = True
         '
         'btnBatal
         '
@@ -208,7 +252,7 @@ Partial Class FormMobil
         '
         'pnlHeader
         '
-        Me.pnlHeader.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.pnlHeader.Controls.Add(Me.lblTitle)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
@@ -274,6 +318,25 @@ Partial Class FormMobil
         Me.pnlForm.Size = New System.Drawing.Size(365, 230)
         Me.pnlForm.TabIndex = 1
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Label6.Location = New System.Drawing.Point(25, 53)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(87, 19)
+        Me.Label6.TabIndex = 13
+        Me.Label6.Text = "Model Mobil"
+        '
+        'txtModel
+        '
+        Me.txtModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtModel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtModel.Location = New System.Drawing.Point(130, 51)
+        Me.txtModel.Name = "txtModel"
+        Me.txtModel.Size = New System.Drawing.Size(210, 25)
+        Me.txtModel.TabIndex = 12
+        '
         'Label5
         '
         Me.Label5.AutoSize = True
@@ -293,69 +356,6 @@ Partial Class FormMobil
         Me.txtPlat.Name = "txtPlat"
         Me.txtPlat.Size = New System.Drawing.Size(200, 25)
         Me.txtPlat.TabIndex = 3
-        '
-        'txtModel
-        '
-        Me.txtModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtModel.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtModel.Location = New System.Drawing.Point(130, 51)
-        Me.txtModel.Name = "txtModel"
-        Me.txtModel.Size = New System.Drawing.Size(210, 25)
-        Me.txtModel.TabIndex = 12
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label6.Location = New System.Drawing.Point(25, 53)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(87, 19)
-        Me.Label6.TabIndex = 13
-        Me.Label6.Text = "Model Mobil"
-        '
-        'colID
-        '
-        Me.colID.HeaderText = "ID"
-        Me.colID.Name = "colID"
-        Me.colID.ReadOnly = True
-        Me.colID.Width = 50
-        '
-        'colMerk
-        '
-        Me.colMerk.HeaderText = "Merk Mobil"
-        Me.colMerk.Name = "colMerk"
-        Me.colMerk.ReadOnly = True
-        '
-        'colModel
-        '
-        Me.colModel.HeaderText = "Model Mobil"
-        Me.colModel.Name = "colModel"
-        Me.colModel.ReadOnly = True
-        '
-        'colTipe
-        '
-        Me.colTipe.HeaderText = "Tipe Mobil"
-        Me.colTipe.Name = "colTipe"
-        Me.colTipe.ReadOnly = True
-        '
-        'colPlat
-        '
-        Me.colPlat.HeaderText = "Nomor Polisi"
-        Me.colPlat.Name = "colPlat"
-        Me.colPlat.ReadOnly = True
-        '
-        'colTahun
-        '
-        Me.colTahun.HeaderText = "Tahun"
-        Me.colTahun.Name = "colTahun"
-        Me.colTahun.ReadOnly = True
-        Me.colTahun.Width = 60
-        '
-        'colHarga
-        '
-        Me.colHarga.HeaderText = "Harga/Hari"
-        Me.colHarga.Name = "colHarga"
-        Me.colHarga.ReadOnly = True
         '
         'FormMobil
         '

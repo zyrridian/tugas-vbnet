@@ -51,7 +51,7 @@ Partial Class FormCustomer
         '
         'pnlHeader
         '
-        Me.pnlHeader.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.pnlHeader.Controls.Add(Me.lblTitle)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
@@ -112,7 +112,7 @@ Partial Class FormCustomer
         '
         'btnSimpan
         '
-        Me.btnSimpan.BackColor = System.Drawing.Color.DarkGreen
+        Me.btnSimpan.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
         Me.btnSimpan.FlatAppearance.BorderSize = 0
         Me.btnSimpan.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnSimpan.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)

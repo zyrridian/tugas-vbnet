@@ -43,7 +43,7 @@ Partial Class FormMain
         '
         'pnlHeader
         '
-        Me.pnlHeader.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.pnlHeader.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.pnlHeader.Controls.Add(Me.lblTitle)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)

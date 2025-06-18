@@ -47,9 +47,10 @@ Partial Class FormRental
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.Panel3 = New System.Windows.Forms.Panel()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.cmbPelanggan = New System.Windows.Forms.ComboBox()
         Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.Panel3.SuspendLayout()
@@ -87,17 +88,17 @@ Partial Class FormRental
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label1.Location = New System.Drawing.Point(20, 90)
+        Me.Label1.Location = New System.Drawing.Point(21, 80)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(112, 19)
+        Me.Label1.Size = New System.Drawing.Size(75, 19)
         Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Nama Pelanggan"
+        Me.Label1.Text = "Pelanggan:"
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label2.Location = New System.Drawing.Point(20, 160)
+        Me.Label2.Location = New System.Drawing.Point(21, 111)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(44, 19)
         Me.Label2.TabIndex = 2
@@ -107,7 +108,7 @@ Partial Class FormRental
         '
         Me.Label3.AutoSize = True
         Me.Label3.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label3.Location = New System.Drawing.Point(20, 195)
+        Me.Label3.Location = New System.Drawing.Point(21, 149)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(90, 19)
         Me.Label3.TabIndex = 3
@@ -117,7 +118,7 @@ Partial Class FormRental
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label4.Location = New System.Drawing.Point(20, 230)
+        Me.Label4.Location = New System.Drawing.Point(21, 184)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(107, 19)
         Me.Label4.TabIndex = 4
@@ -127,7 +128,7 @@ Partial Class FormRental
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label5.Location = New System.Drawing.Point(20, 265)
+        Me.Label5.Location = New System.Drawing.Point(21, 215)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(114, 19)
         Me.Label5.TabIndex = 5
@@ -137,7 +138,7 @@ Partial Class FormRental
         '
         Me.Label6.AutoSize = True
         Me.Label6.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label6.Location = New System.Drawing.Point(20, 300)
+        Me.Label6.Location = New System.Drawing.Point(21, 250)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(99, 19)
         Me.Label6.TabIndex = 6
@@ -147,7 +148,7 @@ Partial Class FormRental
         '
         Me.Label7.AutoSize = True
         Me.Label7.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label7.Location = New System.Drawing.Point(20, 335)
+        Me.Label7.Location = New System.Drawing.Point(21, 285)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(74, 19)
         Me.Label7.TabIndex = 7
@@ -157,7 +158,7 @@ Partial Class FormRental
         '
         Me.Label8.AutoSize = True
         Me.Label8.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label8.Location = New System.Drawing.Point(20, 370)
+        Me.Label8.Location = New System.Drawing.Point(21, 321)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(84, 19)
         Me.Label8.TabIndex = 8
@@ -167,7 +168,7 @@ Partial Class FormRental
         '
         Me.Label9.AutoSize = True
         Me.Label9.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label9.Location = New System.Drawing.Point(20, 405)
+        Me.Label9.Location = New System.Drawing.Point(21, 355)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(123, 19)
         Me.Label9.TabIndex = 9
@@ -187,16 +188,16 @@ Partial Class FormRental
         Me.cmbMobil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbMobil.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbMobil.FormattingEnabled = True
-        Me.cmbMobil.Location = New System.Drawing.Point(150, 160)
+        Me.cmbMobil.Location = New System.Drawing.Point(145, 108)
         Me.cmbMobil.Name = "cmbMobil"
-        Me.cmbMobil.Size = New System.Drawing.Size(270, 25)
+        Me.cmbMobil.Size = New System.Drawing.Size(210, 25)
         Me.cmbMobil.TabIndex = 3
         '
         'dtpSewa
         '
         Me.dtpSewa.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpSewa.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpSewa.Location = New System.Drawing.Point(150, 195)
+        Me.dtpSewa.Location = New System.Drawing.Point(145, 143)
         Me.dtpSewa.Name = "dtpSewa"
         Me.dtpSewa.Size = New System.Drawing.Size(160, 25)
         Me.dtpSewa.TabIndex = 4
@@ -205,7 +206,7 @@ Partial Class FormRental
         '
         Me.dtpKembali.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpKembali.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtpKembali.Location = New System.Drawing.Point(150, 230)
+        Me.dtpKembali.Location = New System.Drawing.Point(145, 178)
         Me.dtpKembali.Name = "dtpKembali"
         Me.dtpKembali.Size = New System.Drawing.Size(160, 25)
         Me.dtpKembali.TabIndex = 5
@@ -216,7 +217,7 @@ Partial Class FormRental
         Me.txtLamaSewa.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtLamaSewa.Enabled = False
         Me.txtLamaSewa.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLamaSewa.Location = New System.Drawing.Point(150, 265)
+        Me.txtLamaSewa.Location = New System.Drawing.Point(145, 213)
         Me.txtLamaSewa.Name = "txtLamaSewa"
         Me.txtLamaSewa.Size = New System.Drawing.Size(32, 25)
         Me.txtLamaSewa.TabIndex = 6
@@ -227,7 +228,7 @@ Partial Class FormRental
         Me.txtHargaPerhari.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtHargaPerhari.Enabled = False
         Me.txtHargaPerhari.Font = New System.Drawing.Font("Segoe UI", 9.75!)
-        Me.txtHargaPerhari.Location = New System.Drawing.Point(150, 300)
+        Me.txtHargaPerhari.Location = New System.Drawing.Point(145, 248)
         Me.txtHargaPerhari.Name = "txtHargaPerhari"
         Me.txtHargaPerhari.Size = New System.Drawing.Size(120, 25)
         Me.txtHargaPerhari.TabIndex = 7
@@ -239,7 +240,7 @@ Partial Class FormRental
         Me.txtTotalBiaya.Enabled = False
         Me.txtTotalBiaya.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTotalBiaya.ForeColor = System.Drawing.Color.DarkGreen
-        Me.txtTotalBiaya.Location = New System.Drawing.Point(150, 335)
+        Me.txtTotalBiaya.Location = New System.Drawing.Point(145, 283)
         Me.txtTotalBiaya.Name = "txtTotalBiaya"
         Me.txtTotalBiaya.Size = New System.Drawing.Size(120, 25)
         Me.txtTotalBiaya.TabIndex = 8
@@ -249,7 +250,7 @@ Partial Class FormRental
         Me.cmbPembayaran.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbPembayaran.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPembayaran.FormattingEnabled = True
-        Me.cmbPembayaran.Location = New System.Drawing.Point(150, 370)
+        Me.cmbPembayaran.Location = New System.Drawing.Point(145, 318)
         Me.cmbPembayaran.Name = "cmbPembayaran"
         Me.cmbPembayaran.Size = New System.Drawing.Size(170, 25)
         Me.cmbPembayaran.TabIndex = 9
@@ -258,7 +259,7 @@ Partial Class FormRental
         '
         Me.txtCatatan.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtCatatan.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtCatatan.Location = New System.Drawing.Point(150, 405)
+        Me.txtCatatan.Location = New System.Drawing.Point(145, 353)
         Me.txtCatatan.Multiline = True
         Me.txtCatatan.Name = "txtCatatan"
         Me.txtCatatan.Size = New System.Drawing.Size(270, 60)
@@ -310,20 +311,28 @@ Partial Class FormRental
         Me.Panel2.Controls.Add(Me.btnProses)
         Me.Panel2.Controls.Add(Me.btnBatal)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel2.Location = New System.Drawing.Point(0, 490)
+        Me.Panel2.Location = New System.Drawing.Point(0, 432)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(450, 70)
         Me.Panel2.TabIndex = 22
         '
-        'Panel3
+        'cmbPelanggan
         '
-        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Panel3.Controls.Add(Me.Label11)
-        Me.Panel3.Controls.Add(Me.Label12)
-        Me.Panel3.Location = New System.Drawing.Point(275, 263)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(145, 30)
-        Me.Panel3.TabIndex = 23
+        Me.cmbPelanggan.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cmbPelanggan.Font = New System.Drawing.Font("Segoe UI", 9.75!)
+        Me.cmbPelanggan.FormattingEnabled = True
+        Me.cmbPelanggan.Location = New System.Drawing.Point(145, 77)
+        Me.cmbPelanggan.Name = "cmbPelanggan"
+        Me.cmbPelanggan.Size = New System.Drawing.Size(270, 25)
+        Me.cmbPelanggan.TabIndex = 0
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(3, 8)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(0, 13)
+        Me.Label12.TabIndex = 0
         '
         'Label11
         '
@@ -336,13 +345,15 @@ Partial Class FormRental
         Me.Label11.TabIndex = 1
         Me.Label11.Text = "Dihitung secara otomatis"
         '
-        'Label12
+        'Panel3
         '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(3, 8)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(0, 13)
-        Me.Label12.TabIndex = 0
+        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
+        Me.Panel3.Controls.Add(Me.Label11)
+        Me.Panel3.Controls.Add(Me.Label12)
+        Me.Panel3.Location = New System.Drawing.Point(275, 209)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(145, 30)
+        Me.Panel3.TabIndex = 23
         '
         'FormRental
         '
@@ -350,12 +361,11 @@ Partial Class FormRental
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(450, 560)
+        Me.ClientSize = New System.Drawing.Size(450, 502)
+        Me.Controls.Add(Me.cmbPelanggan)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.txtTelp)
-        Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.txtCatatan)
         Me.Controls.Add(Me.cmbPembayaran)
         Me.Controls.Add(Me.txtTotalBiaya)
@@ -364,7 +374,6 @@ Partial Class FormRental
         Me.Controls.Add(Me.dtpKembali)
         Me.Controls.Add(Me.dtpSewa)
         Me.Controls.Add(Me.cmbMobil)
-        Me.Controls.Add(Me.txtNama)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label7)
@@ -413,7 +422,8 @@ Partial Class FormRental
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
-    Friend WithEvents Panel3 As System.Windows.Forms.Panel
-    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents cmbPelanggan As System.Windows.Forms.ComboBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents Panel3 As System.Windows.Forms.Panel
 End Class
