@@ -2,22 +2,6 @@
 
 Public Class FormRentalList
 
-    ' Class untuk menyimpan data rental
-    Private Class RentalData
-        Public Property ID As String
-        Public Property CustomerName As String
-        Public Property Phone As String
-        Public Property CarModel As String
-        Public Property RentDate As Date
-        Public Property ReturnDate As Date
-        Public Property Duration As Integer
-        Public Property TotalCost As Decimal
-        Public Property Status As String
-    End Class
-
-    ' Daftar rental untuk simulasi data
-    Private rentalList As New List(Of RentalData)
-
     ' Event saat form dimuat
     Private Sub FormRentalList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Set default filter
@@ -27,74 +11,8 @@ Public Class FormRentalList
         LoadRentalData()
     End Sub
 
-    ' Method untuk membuat data dummy
-    Private Sub CreateDummyData()
-        rentalList.Clear()
-
-        ' Tambahkan beberapa data rental dummy
-        rentalList.Add(New RentalData() With {
-            .ID = "R001",
-            .CustomerName = "John Doe",
-            .Phone = "081234567890",
-            .CarModel = "Toyota Avanza",
-            .RentDate = DateTime.Now.AddDays(-5),
-            .ReturnDate = DateTime.Now.AddDays(2),
-            .Duration = 7,
-            .TotalCost = 700000,
-            .Status = "Active"
-        })
-
-        rentalList.Add(New RentalData() With {
-            .ID = "R002",
-            .CustomerName = "Jane Smith",
-            .Phone = "089876543210",
-            .CarModel = "Honda Jazz",
-            .RentDate = DateTime.Now.AddDays(-10),
-            .ReturnDate = DateTime.Now.AddDays(-3),
-            .Duration = 7,
-            .TotalCost = 800000,
-            .Status = "Completed"
-        })
-
-        rentalList.Add(New RentalData() With {
-            .ID = "R003",
-            .CustomerName = "Robert Johnson",
-            .Phone = "087812345678",
-            .CarModel = "Suzuki Ertiga",
-            .RentDate = DateTime.Now.AddDays(-15),
-            .ReturnDate = DateTime.Now.AddDays(-10),
-            .Duration = 5,
-            .TotalCost = 500000,
-            .Status = "Completed"
-        })
-
-        rentalList.Add(New RentalData() With {
-            .ID = "R004",
-            .CustomerName = "Michael Brown",
-            .Phone = "081122334455",
-            .CarModel = "Daihatsu Xenia",
-            .RentDate = DateTime.Now.AddDays(-3),
-            .ReturnDate = DateTime.Now.AddDays(-1),
-            .Duration = 2,
-            .TotalCost = 200000,
-            .Status = "Overdue"
-        })
-
-        rentalList.Add(New RentalData() With {
-            .ID = "R005",
-            .CustomerName = "Sarah Williams",
-            .Phone = "089988776655",
-            .CarModel = "Toyota Rush",
-            .RentDate = DateTime.Now,
-            .ReturnDate = DateTime.Now.AddDays(3),
-            .Duration = 3,
-            .TotalCost = 450000,
-            .Status = "Active"
-        })
-    End Sub
-
     ' Method untuk memuat data rental ke DataGridView
-    Private Sub LoadRentalData(Optional filter As String = "All Status", Optional searchText As String = "")
+    Private Sub LoadRentalData(Optional ByVal filter As String = "All Status", Optional ByVal searchText As String = "")
         dgvRentals.Rows.Clear()
 
         Try
@@ -106,10 +24,10 @@ Public Class FormRentalList
                                  "JOIN pelanggan p ON r.pelanggan_id = p.id " & _
                                  "JOIN mobil m ON r.mobil_id = m.id " & _
                                  "WHERE 1=1 "
-            
+
             ' Parameter untuk query
             Dim parameters As New Dictionary(Of String, Object)
-            
+
             ' Filter berdasarkan status
             If filter <> "All Status" Then
                 query &= " AND r.status = @status"
@@ -121,10 +39,10 @@ Public Class FormRentalList
                 query &= " AND (p.nama LIKE @search OR m.merk LIKE @search OR m.tipe LIKE @search OR r.id LIKE @search)"
                 parameters.Add("@search", "%" & searchText & "%")
             End If
-            
+
             ' Urutkan berdasarkan ID rental terbaru
             query &= " ORDER BY r.id DESC"
-            
+
             ' Jalankan query
             Dim dt As DataTable = ModuleConnection.ExecuteQuery(query, parameters)
 
@@ -163,14 +81,12 @@ Public Class FormRentalList
                         dgvRentals.Rows(rowIndex).Cells("colStatus").Style.ForeColor = Color.Red
                 End Select
             Next
-            
+
             ' Update label status
             UpdateStatusLabels(dt)
-            
+
         Catch ex As Exception
-            MessageBox.Show("Error loading rental data: " & ex.Message & vbCrLf & "Using dummy data instead.", "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            ' Jika terjadi error, gunakan data dummy
-            CreateDummyData()
+            MessageBox.Show("Error loading rental data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
@@ -178,11 +94,11 @@ Public Class FormRentalList
     Private Sub UpdateStatusLabels(ByVal dt As DataTable)
         Try
             lblTotal.Text = "Total Rentals: " & dt.Rows.Count
-            
+
             ' Hitung jumlah status Active
             Dim activeCount As Integer = 0
             Dim completedCount As Integer = 0
-            
+
             For Each row As DataRow In dt.Rows
                 Dim status As String = row("status").ToString()
                 If status = "Active" Then
@@ -191,20 +107,19 @@ Public Class FormRentalList
                     completedCount += 1
                 End If
             Next
-            
+
             lblActive.Text = "Active: " & activeCount
             lblCompleted.Text = "Completed: " & completedCount
-            
+
         Catch ex As Exception
             ' Ignore label update errors
             lblTotal.Text = "Total Rentals: " & dt.Rows.Count
         End Try
     End Sub
 
-    ' Event saat tombol Refresh diklik
-    Private Sub btnRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefresh.Click
-        ' Muat ulang data
-        LoadRentalData(cmbFilter.Text, txtSearch.Text)
+    ' Event saat tombol Batal diklik
+    Private Sub btnTutup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnTutup.Click
+        Me.Close()
     End Sub
 
     ' Event saat filter berubah
@@ -217,21 +132,6 @@ Public Class FormRentalList
     Private Sub txtSearch_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles txtSearch.TextChanged
         ' Muat ulang data dengan teks pencarian baru
         LoadRentalData(cmbFilter.Text, txtSearch.Text)
-    End Sub
-
-    ' Event saat tombol Edit diklik
-    Private Sub btnEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
-        ' Periksa apakah ada baris yang dipilih
-        If dgvRentals.SelectedRows.Count = 0 Then
-            MessageBox.Show("Pilih data rental yang akan diedit!", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return
-        End If
-
-        ' Ambil ID rental yang dipilih
-        Dim selectedID As String = dgvRentals.SelectedRows(0).Cells("colRentalID").Value.ToString()
-
-        ' Dalam implementasi nyata, buka form edit dengan data rental yang dipilih
-        MessageBox.Show("Edit rental dengan ID: " & selectedID, "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     ' Event saat tombol Return Car diklik
@@ -263,14 +163,14 @@ Public Class FormRentalList
                 Dim getParams As New Dictionary(Of String, Object)
                 getParams.Add("@id", selectedID)
                 Dim mobilId As Object = ModuleConnection.ExecuteScalar(getMobilQuery, getParams)
-                
+
                 ' Update status rental di database
                 Dim updateQuery As String = "UPDATE rental SET status = 'Completed', updated_at = NOW() WHERE id = @id"
                 Dim parameters As New Dictionary(Of String, Object)
                 parameters.Add("@id", selectedID)
-                
+
                 Dim rowAffected As Integer = ModuleConnection.ExecuteNonQuery(updateQuery, parameters)
-                
+
                 If rowAffected > 0 Then
                     ' Update status mobil menjadi Available
                     If mobilId IsNot Nothing Then
@@ -279,7 +179,7 @@ Public Class FormRentalList
                         mobilParams.Add("@id", mobilId)
                         ModuleConnection.ExecuteNonQuery(updateMobilQuery, mobilParams)
                     End If
-                    
+
                     ' Muat ulang data
                     LoadRentalData(cmbFilter.Text, txtSearch.Text)
                     MessageBox.Show("Pengembalian mobil berhasil diproses!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -314,22 +214,22 @@ Public Class FormRentalList
                 Dim getParams As New Dictionary(Of String, Object)
                 getParams.Add("@id", selectedID)
                 Dim dt As DataTable = ModuleConnection.ExecuteQuery(getMobilQuery, getParams)
-                
+
                 Dim mobilId As Object = Nothing
                 Dim rentalStatus As String = "Completed"
-                
+
                 If dt.Rows.Count > 0 Then
                     mobilId = dt.Rows(0)("mobil_id")
                     rentalStatus = dt.Rows(0)("status").ToString()
                 End If
-                
+
                 ' Hapus data dari database
                 Dim deleteQuery As String = "DELETE FROM rental WHERE id = @id"
                 Dim parameters As New Dictionary(Of String, Object)
                 parameters.Add("@id", selectedID)
-                
+
                 Dim rowAffected As Integer = ModuleConnection.ExecuteNonQuery(deleteQuery, parameters)
-                
+
                 If rowAffected > 0 Then
                     ' Update status mobil menjadi Available jika status rental masih Active
                     If mobilId IsNot Nothing AndAlso rentalStatus = "Active" Then
@@ -338,7 +238,7 @@ Public Class FormRentalList
                         mobilParams.Add("@id", mobilId)
                         ModuleConnection.ExecuteNonQuery(updateMobilQuery, mobilParams)
                     End If
-                    
+
                     ' Muat ulang data
                     LoadRentalData(cmbFilter.Text, txtSearch.Text)
                     MessageBox.Show("Data rental berhasil dihapus!", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -352,8 +252,7 @@ Public Class FormRentalList
     End Sub
 
     ' Event saat tombol Close diklik
-    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClose.Click
+    Private Sub btnClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         Me.Close()
     End Sub
-
 End Class

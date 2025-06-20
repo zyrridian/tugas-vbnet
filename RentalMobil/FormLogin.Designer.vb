@@ -122,7 +122,7 @@ Partial Class FormLogin
         Me.btnBatal.Name = "btnBatal"
         Me.btnBatal.Size = New System.Drawing.Size(120, 40)
         Me.btnBatal.TabIndex = 5
-        Me.btnBatal.Text = "Reset"
+        Me.btnBatal.Text = "Keluar"
         Me.btnBatal.UseVisualStyleBackColor = False
         '
         'btnLogin

@@ -48,12 +48,8 @@ Partial Class FormRental
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.cmbPelanggan = New System.Windows.Forms.ComboBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.Panel3 = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
-        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnProses
@@ -326,35 +322,6 @@ Partial Class FormRental
         Me.cmbPelanggan.Size = New System.Drawing.Size(270, 25)
         Me.cmbPelanggan.TabIndex = 0
         '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(3, 8)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(0, 13)
-        Me.Label12.TabIndex = 0
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label11.ForeColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
-        Me.Label11.Location = New System.Drawing.Point(5, 8)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(139, 15)
-        Me.Label11.TabIndex = 1
-        Me.Label11.Text = "Dihitung secara otomatis"
-        '
-        'Panel3
-        '
-        Me.Panel3.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.Panel3.Controls.Add(Me.Label11)
-        Me.Panel3.Controls.Add(Me.Label12)
-        Me.Panel3.Location = New System.Drawing.Point(275, 209)
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(145, 30)
-        Me.Panel3.TabIndex = 23
-        '
         'FormRental
         '
         Me.AcceptButton = Me.btnProses
@@ -363,7 +330,6 @@ Partial Class FormRental
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(450, 502)
         Me.Controls.Add(Me.cmbPelanggan)
-        Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.txtCatatan)
@@ -391,8 +357,6 @@ Partial Class FormRental
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.Panel2.ResumeLayout(False)
-        Me.Panel3.ResumeLayout(False)
-        Me.Panel3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -423,7 +387,4 @@ Partial Class FormRental
     Friend WithEvents lblTitle As System.Windows.Forms.Label
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents cmbPelanggan As System.Windows.Forms.ComboBox
-    Friend WithEvents Label12 As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Panel3 As System.Windows.Forms.Panel
 End Class

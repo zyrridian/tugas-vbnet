@@ -117,13 +117,13 @@ Public Class FormReport
                 Dim totalCost As Decimal = Convert.ToDecimal(row("total_biaya"))
                 
                 dgvRentalReport.Rows.Add(
-                    id, 
-                    customerName, 
+                    id,
+                    customerName,
                     carModel,
                     rentDate.ToShortDateString(),
                     returnDate.ToShortDateString(),
                     duration & " hari",
-                    FormatCurrency(totalCost, 0)
+                    String.Format("Rp {0:N0}", totalCost)
                 )
                 
                 ' Jumlahkan pendapatan
@@ -131,11 +131,11 @@ Public Class FormReport
             Next
             
             ' Update label total pendapatan
-            lblTotal.Text = "Total Pendapatan : " & FormatCurrency(totalPendapatan, 0)
+            lblTotal.Text = "Total Pendapatan : " & String.Format("Rp {0:N0}", totalPendapatan)
             
         Catch ex As Exception
             MessageBox.Show("Error loading rental data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            lblTotal.Text = "Total Pendapatan : " & FormatCurrency(0, 0)
+            lblTotal.Text = "Total Pendapatan : " & String.Format("Rp {0:N0}", 0)
         End Try
     End Sub
 

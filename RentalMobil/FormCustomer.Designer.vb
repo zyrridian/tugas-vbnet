@@ -84,12 +84,12 @@ Partial Class FormCustomer
         '
         'btnTutup
         '
-        Me.btnTutup.BackColor = System.Drawing.Color.DarkRed
+        Me.btnTutup.BackColor = System.Drawing.Color.FromArgb(CType(CType(108, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(125, Byte), Integer))
         Me.btnTutup.FlatAppearance.BorderSize = 0
         Me.btnTutup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnTutup.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnTutup.ForeColor = System.Drawing.Color.White
-        Me.btnTutup.Location = New System.Drawing.Point(260, 15)
+        Me.btnTutup.Location = New System.Drawing.Point(685, 15)
         Me.btnTutup.Name = "btnTutup"
         Me.btnTutup.Size = New System.Drawing.Size(95, 34)
         Me.btnTutup.TabIndex = 2

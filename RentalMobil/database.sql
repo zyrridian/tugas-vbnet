@@ -1,7 +1,7 @@
 -- Drop database if it exists and create a new one
-DROP DATABASE IF EXISTS rentalmobil;
-CREATE DATABASE rentalmobil;
-USE rentalmobil;
+DROP DATABASE IF EXISTS db_rental_mobil;
+CREATE DATABASE db_rental_mobil;
+USE db_rental_mobil;
 
 -- Table for car/vehicle data
 CREATE TABLE mobil (
@@ -22,6 +22,7 @@ CREATE TABLE pelanggan (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nama VARCHAR(100) NOT NULL,
     nomor_telepon VARCHAR(20) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     alamat TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -44,18 +45,6 @@ CREATE TABLE rental (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (pelanggan_id) REFERENCES pelanggan(id),
     FOREIGN KEY (mobil_id) REFERENCES mobil(id)
-);
-
--- Table for payment transactions
-CREATE TABLE pembayaran (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    rental_id INT NOT NULL,
-    jumlah_bayar DECIMAL(10,2) NOT NULL,
-    tanggal_bayar DATE NOT NULL,
-    metode_pembayaran ENUM('Cash', 'Transfer Bank', 'QRIS', 'Kartu Kredit') NOT NULL,
-    keterangan VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (rental_id) REFERENCES rental(id)
 );
 
 -- Table for users
@@ -84,12 +73,12 @@ INSERT INTO mobil (merk, model, tipe, plat_nomor, tahun, harga_sewa_perhari) VAL
 ('Toyota', 'Fortuner', 'SUV', 'B1122MN', 2020, 800000.00);
 
 -- Insert sample customer data
-INSERT INTO pelanggan (nama, nomor_telepon, alamat) VALUES
-('Budi Santoso', '081234567890', 'Jl. Merdeka No. 123, Jakarta'),
-('Dewi Lestari', '082345678901', 'Jl. Sudirman No. 45, Jakarta'),
-('Ahmad Wijaya', '083456789012', 'Jl. Gatot Subroto No. 67, Jakarta'),
-('Siti Rahayu', '084567890123', 'Jl. Thamrin No. 89, Jakarta'),
-('Rudi Hartono', '085678901234', 'Jl. Kuningan No. 12, Jakarta');
+INSERT INTO pelanggan (nama, nomor_telepon, email, alamat) VALUES
+('Budi Santoso', '081234567890', 'budi@gmail.com', 'Jl. Merdeka No. 123, Jakarta'),
+('Dewi Lestari', '082345678901', 'dewi@gmail.com', 'Jl. Sudirman No. 45, Jakarta'),
+('Ahmad Wijaya', '083456789012', 'ahmad@gmail.com', 'Jl. Gatot Subroto No. 67, Jakarta'),
+('Siti Rahayu', '084567890123', 'siti@gmail.com', 'Jl. Thamrin No. 89, Jakarta'),
+('Rudi Hartono', '085678901234', 'rudi@gmail.com', 'Jl. Kuningan No. 12, Jakarta');
 
 -- Insert sample rental data
 INSERT INTO rental (pelanggan_id, mobil_id, tanggal_sewa, tanggal_kembali, lama_sewa, harga_perhari, total_biaya, metode_pembayaran, status)
@@ -104,14 +93,3 @@ VALUES
 
 -- Update mobil status for active rental
 UPDATE mobil SET status = 'Rented' WHERE id IN (SELECT mobil_id FROM rental WHERE status = 'Active');
-
--- Insert sample payment data
-INSERT INTO pembayaran (rental_id, jumlah_bayar, tanggal_bayar, metode_pembayaran, keterangan)
-VALUES
-(1, 600000.00, '2025-06-10', 'Cash', 'Pembayaran penuh'),
-(2, 1400000.00, '2025-06-15', 'Transfer Bank', 'Pembayaran penuh'),
-(3, 2500000.00, '2025-06-25', 'QRIS', 'Pembayaran penuh'),
-(4, 2250000.00, '2025-07-05', 'Kartu Kredit', 'Pembayaran penuh'),
-(5, 4000000.00, '2025-07-15', 'Transfer Bank', 'Pembayaran penuh'),
-(6, 1200000.00, '2025-08-01', 'Cash', 'Pembayaran penuh'),
-(7, 900000.00, CURDATE(), 'QRIS', 'Pembayaran penuh'); 

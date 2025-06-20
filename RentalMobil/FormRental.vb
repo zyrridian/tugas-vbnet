@@ -25,8 +25,11 @@ Public Class FormRental
         Dim durasi As Integer
         Dim harga As Integer
 
-        ' Jika input valid (angka), lakukan perhitungan
-        If Integer.TryParse(txtLamaSewa.Text, durasi) AndAlso Integer.TryParse(txtHargaPerhari.Text, harga) Then
+        ' Remove formatting from harga text before parsing
+        Dim hargaText As String = txtHargaPerhari.Text.Replace(",", "").Replace(".", "").Trim()
+
+        ' If input valid (angka), lakukan perhitungan
+        If Integer.TryParse(txtLamaSewa.Text, durasi) AndAlso Integer.TryParse(hargaText, harga) Then
             Dim total As Integer = durasi * harga
             ' Format dengan pemisah ribuan
             txtTotalBiaya.Text = FormatNumber(total, 0, , , TriState.False)
@@ -61,7 +64,7 @@ Public Class FormRental
                     .Text = row("nama_mobil").ToString(),
                     .Value = Convert.ToInt32(row("id"))
                 })
-                
+
                 ' Jika belum ada harga, set harga default dari database
                 If String.IsNullOrWhiteSpace(txtHargaPerhari.Text) Then
                     txtHargaPerhari.Text = row("harga_sewa_perhari").ToString()
@@ -137,12 +140,12 @@ Public Class FormRental
                 ' Ambil ID mobil yang dipilih
                 Dim selectedItem = cmbMobil.SelectedItem
                 selectedMobilId = selectedItem.Value
-                
+
                 ' Ambil data harga sewa mobil dari database
                 Dim query As String = "SELECT harga_sewa_perhari FROM mobil WHERE id = @id"
                 Dim parameters As New Dictionary(Of String, Object)
                 parameters.Add("@id", selectedMobilId)
-                
+
                 Dim harga As Object = ModuleConnection.ExecuteScalar(query, parameters)
                 If harga IsNot Nothing Then
                     txtHargaPerhari.Text = harga.ToString()
@@ -157,7 +160,7 @@ Public Class FormRental
     End Sub
 
     ' Event saat pelanggan dipilih di combobox
-    Private Sub cmbPelanggan_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub cmbPelanggan_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles cmbPelanggan.SelectedIndexChanged
         If cmbPelanggan.SelectedItem IsNot Nothing Then
             Try
                 ' Ambil ID pelanggan yang dipilih
@@ -171,9 +174,14 @@ Public Class FormRental
 
     ' Event saat FormRental pertama kali dimuat
     Private Sub FormRental_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        ' Atur tanggal sewa ke hari ini
+        ' Tambahkan event listener agar ketika tanggal/harga berubah, perhitungan dilakukan otomatis
+        AddHandler dtpSewa.ValueChanged, AddressOf HitungLamaSewa
+        AddHandler dtpKembali.ValueChanged, AddressOf HitungLamaSewa
+        AddHandler txtHargaPerhari.TextChanged, AddressOf HitungTotalBiaya
+        AddHandler txtLamaSewa.TextChanged, AddressOf HitungTotalBiaya
+
+        ' Then set your initial values
         dtpSewa.Value = Date.Today
-        ' Atur tanggal kembali ke besok
         dtpKembali.Value = Date.Today.AddDays(1)
 
         ' Isi ComboBox mobil, pelanggan, dan metode pembayaran
@@ -187,26 +195,13 @@ Public Class FormRental
 
         ' Default harga sewa jika belum diisi dari database
         If String.IsNullOrEmpty(txtHargaPerhari.Text) Then
-            txtHargaPerhari.Text = "250000"
+            txtHargaPerhari.Text = "0"
         End If
-        
+
         HitungTotalBiaya()
 
         ' Tombol proses aktif sejak awal
         btnProses.Enabled = True
-
-        ' Tambahkan event listener agar ketika tanggal/harga berubah, perhitungan dilakukan otomatis
-        AddHandler dtpSewa.ValueChanged, AddressOf HitungLamaSewa
-        AddHandler dtpKembali.ValueChanged, AddressOf HitungLamaSewa
-        AddHandler txtHargaPerhari.TextChanged, AddressOf HitungTotalBiaya
-    End Sub
-
-    ' Validasi inputan numerik untuk txtHargaPerhari
-    Private Sub txtHargaPerhari_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtHargaPerhari.KeyPress
-        ' Hanya terima angka dan tombol kontrol seperti backspace
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
     End Sub
 
     ' Event saat tombol Proses diklik
@@ -287,7 +282,7 @@ Public Class FormRental
                                            "lama_sewa, harga_perhari, total_biaya, metode_pembayaran, catatan, status) " & _
                                            "VALUES (@customer, @mobil, @tgl_sewa, @tgl_kembali, @durasi, @harga, @total, " & _
                                            "@pembayaran, @catatan, 'Active')"
-                
+
                 Dim parameters As New Dictionary(Of String, Object)
                 parameters.Add("@customer", selectedCustomerId)
                 parameters.Add("@mobil", selectedMobilId)
@@ -298,76 +293,26 @@ Public Class FormRental
                 parameters.Add("@total", totalBiaya)
                 parameters.Add("@pembayaran", pembayaran)
                 parameters.Add("@catatan", catatan)
-                
+
                 ModuleConnection.ExecuteNonQuery(insertQuery, parameters)
-                
+
                 ' Update status mobil menjadi Rented
                 Dim updateMobilQuery As String = "UPDATE mobil SET status = 'Rented' WHERE id = @id"
                 Dim mobilParams As New Dictionary(Of String, Object)
                 mobilParams.Add("@id", selectedMobilId)
                 ModuleConnection.ExecuteNonQuery(updateMobilQuery, mobilParams)
-                
-                Dim detail As String = String.Format(
-                    "Detail Data Penyewaan:" & vbCrLf &
-                    "Pelanggan    : {0}" & vbCrLf &
-                    "Mobil        : {1}" & vbCrLf &
-                    "Tgl Sewa     : {2}" & vbCrLf &
-                    "Tgl Kembali  : {3}" & vbCrLf &
-                    "Lama Sewa    : {4} Hari" & vbCrLf &
-                    "Harga/Hari   : Rp {5}" & vbCrLf &
-                    "Total Biaya  : Rp {6}" & vbCrLf &
-                    "Pembayaran   : {7}" & vbCrLf &
-                    "Catatan      : {8}",
-                    pelangganDisplay,
-                    mobil,
-                    tglSewa.ToShortDateString(),
-                    tglKembali.ToShortDateString(),
-                    lamaSewa,
-                    FormatNumber(hargaPerHari, 0, , , TriState.False),
-                    FormatNumber(totalBiaya, 0, , , TriState.False),
-                    pembayaran,
-                    catatan
-                )
-                
-                MessageBox.Show(detail, "Berhasil Diproses", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                
+
+                MessageBox.Show("Berhasil Diproses", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
                 ' Reset form setelah berhasil untuk input baru
                 ResetForm()
-                
+
                 ' Refresh data mobil karena ada mobil yang sudah diambil
                 IsiDataMobil()
             Catch ex As Exception
                 MessageBox.Show("Error menyimpan data rental: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
         End If
-    End Sub
-
-    ' Reset semua field form ke keadaan awal
-    Private Sub ResetForm()
-        ' Atur tanggal sewa ke hari ini
-        dtpSewa.Value = Date.Today
-        ' Atur tanggal kembali ke besok
-        dtpKembali.Value = Date.Today.AddDays(1)
-        
-        ' Reset combobox
-        If cmbMobil.Items.Count > 0 Then
-            cmbMobil.SelectedIndex = 0
-        End If
-        
-        If cmbPelanggan.Items.Count > 0 Then
-            cmbPelanggan.SelectedIndex = 0
-        End If
-        
-        If cmbPembayaran.Items.Count > 0 Then
-            cmbPembayaran.SelectedIndex = 0
-        End If
-
-        txtLamaSewa.Text = "1"
-        txtCatatan.Clear()
-        
-        ' Reset ID
-        selectedMobilId = 0
-        selectedCustomerId = 0
     End Sub
 
     ' Event saat tombol Batal diklik
@@ -379,11 +324,35 @@ Public Class FormRental
                 Exit Sub
             End If
         End If
-        
+
         Me.Close()
     End Sub
 
-    Private Sub Label4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Label4.Click
+    ' Reset semua field form ke keadaan awal
+    Private Sub ResetForm()
+        ' Atur tanggal sewa ke hari ini
+        dtpSewa.Value = Date.Today
+        ' Atur tanggal kembali ke besok
+        dtpKembali.Value = Date.Today.AddDays(1)
 
+        ' Reset combobox
+        If cmbMobil.Items.Count > 0 Then
+            cmbMobil.SelectedIndex = 0
+        End If
+
+        If cmbPelanggan.Items.Count > 0 Then
+            cmbPelanggan.SelectedIndex = 0
+        End If
+
+        If cmbPembayaran.Items.Count > 0 Then
+            cmbPembayaran.SelectedIndex = 0
+        End If
+
+        txtLamaSewa.Text = "1"
+        txtCatatan.Clear()
+
+        ' Reset ID
+        selectedMobilId = 0
+        selectedCustomerId = 0
     End Sub
 End Class

@@ -48,7 +48,7 @@ Partial Class FormMain
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
         Me.pnlHeader.Name = "pnlHeader"
-        Me.pnlHeader.Size = New System.Drawing.Size(752, 60)
+        Me.pnlHeader.Size = New System.Drawing.Size(746, 60)
         Me.pnlHeader.TabIndex = 1
         '
         'lblTitle
@@ -68,9 +68,9 @@ Partial Class FormMain
         Me.pnlFooter.Controls.Add(Me.lblDbStatus)
         Me.pnlFooter.Controls.Add(Me.lblUserInfo)
         Me.pnlFooter.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlFooter.Location = New System.Drawing.Point(0, 433)
+        Me.pnlFooter.Location = New System.Drawing.Point(0, 427)
         Me.pnlFooter.Name = "pnlFooter"
-        Me.pnlFooter.Size = New System.Drawing.Size(752, 30)
+        Me.pnlFooter.Size = New System.Drawing.Size(746, 30)
         Me.pnlFooter.TabIndex = 2
         '
         'lblDbStatus
@@ -78,7 +78,7 @@ Partial Class FormMain
         Me.lblDbStatus.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblDbStatus.Font = New System.Drawing.Font("Segoe UI", 9.0!)
         Me.lblDbStatus.ForeColor = System.Drawing.Color.Green
-        Me.lblDbStatus.Location = New System.Drawing.Point(541, 6)
+        Me.lblDbStatus.Location = New System.Drawing.Point(535, 6)
         Me.lblDbStatus.Name = "lblDbStatus"
         Me.lblDbStatus.Size = New System.Drawing.Size(199, 18)
         Me.lblDbStatus.TabIndex = 1
@@ -107,12 +107,12 @@ Partial Class FormMain
         Me.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlContent.Location = New System.Drawing.Point(0, 60)
         Me.pnlContent.Name = "pnlContent"
-        Me.pnlContent.Size = New System.Drawing.Size(752, 373)
+        Me.pnlContent.Size = New System.Drawing.Size(746, 367)
         Me.pnlContent.TabIndex = 3
         '
         'btnRental
         '
-        Me.btnRental.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.btnRental.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btnRental.FlatAppearance.BorderSize = 0
         Me.btnRental.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRental.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -130,7 +130,7 @@ Partial Class FormMain
         '
         'btnCar
         '
-        Me.btnCar.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.btnCar.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btnCar.FlatAppearance.BorderSize = 0
         Me.btnCar.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnCar.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -148,7 +148,7 @@ Partial Class FormMain
         '
         'btnManageCustomer
         '
-        Me.btnManageCustomer.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.btnManageCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btnManageCustomer.FlatAppearance.BorderSize = 0
         Me.btnManageCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnManageCustomer.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -166,7 +166,7 @@ Partial Class FormMain
         '
         'btnRentalList
         '
-        Me.btnRentalList.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.btnRentalList.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btnRentalList.FlatAppearance.BorderSize = 0
         Me.btnRentalList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnRentalList.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -184,7 +184,7 @@ Partial Class FormMain
         '
         'btnReports
         '
-        Me.btnReports.BackColor = System.Drawing.Color.DeepSkyBlue
+        Me.btnReports.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
         Me.btnReports.FlatAppearance.BorderSize = 0
         Me.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnReports.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -202,7 +202,7 @@ Partial Class FormMain
         '
         'btnLogout
         '
-        Me.btnLogout.BackColor = System.Drawing.Color.Crimson
+        Me.btnLogout.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(43, Byte), Integer))
         Me.btnLogout.FlatAppearance.BorderSize = 0
         Me.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnLogout.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
@@ -223,7 +223,7 @@ Partial Class FormMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(752, 463)
+        Me.ClientSize = New System.Drawing.Size(746, 457)
         Me.Controls.Add(Me.pnlContent)
         Me.Controls.Add(Me.pnlFooter)
         Me.Controls.Add(Me.pnlHeader)

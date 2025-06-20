@@ -27,8 +27,7 @@ Partial Class FormRentalList
         Me.pnlToolbar = New System.Windows.Forms.Panel()
         Me.btnDelete = New System.Windows.Forms.Button()
         Me.btnReturn = New System.Windows.Forms.Button()
-        Me.btnRefresh = New System.Windows.Forms.Button()
-        Me.btnClose = New System.Windows.Forms.Button()
+        Me.btnTutup = New System.Windows.Forms.Button()
         Me.pnlSearch = New System.Windows.Forms.Panel()
         Me.lblFilter = New System.Windows.Forms.Label()
         Me.cmbFilter = New System.Windows.Forms.ComboBox()
@@ -83,8 +82,7 @@ Partial Class FormRentalList
         Me.pnlToolbar.BackColor = System.Drawing.Color.White
         Me.pnlToolbar.Controls.Add(Me.btnDelete)
         Me.pnlToolbar.Controls.Add(Me.btnReturn)
-        Me.pnlToolbar.Controls.Add(Me.btnRefresh)
-        Me.pnlToolbar.Controls.Add(Me.btnClose)
+        Me.pnlToolbar.Controls.Add(Me.btnTutup)
         Me.pnlToolbar.Controls.Add(Me.pnlSearch)
         Me.pnlToolbar.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlToolbar.Location = New System.Drawing.Point(0, 60)
@@ -99,11 +97,11 @@ Partial Class FormRentalList
         Me.btnDelete.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnDelete.FlatAppearance.BorderSize = 0
         Me.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnDelete.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnDelete.ForeColor = System.Drawing.Color.White
-        Me.btnDelete.Location = New System.Drawing.Point(755, 15)
+        Me.btnDelete.Location = New System.Drawing.Point(705, 15)
         Me.btnDelete.Name = "btnDelete"
-        Me.btnDelete.Size = New System.Drawing.Size(75, 40)
+        Me.btnDelete.Size = New System.Drawing.Size(83, 40)
         Me.btnDelete.TabIndex = 4
         Me.btnDelete.Text = "Delete"
         Me.btnDelete.UseVisualStyleBackColor = False
@@ -114,44 +112,29 @@ Partial Class FormRentalList
         Me.btnReturn.Dock = System.Windows.Forms.DockStyle.Right
         Me.btnReturn.FlatAppearance.BorderSize = 0
         Me.btnReturn.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnReturn.Font = New System.Drawing.Font("Segoe UI", 9.0!)
+        Me.btnReturn.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
         Me.btnReturn.ForeColor = System.Drawing.Color.White
-        Me.btnReturn.Location = New System.Drawing.Point(830, 15)
+        Me.btnReturn.Location = New System.Drawing.Point(788, 15)
         Me.btnReturn.Name = "btnReturn"
-        Me.btnReturn.Size = New System.Drawing.Size(75, 40)
+        Me.btnReturn.Size = New System.Drawing.Size(108, 40)
         Me.btnReturn.TabIndex = 3
         Me.btnReturn.Text = "Return Car"
         Me.btnReturn.UseVisualStyleBackColor = False
         '
-        'btnRefresh
+        'btnTutup
         '
-        Me.btnRefresh.BackColor = System.Drawing.Color.FromArgb(CType(CType(108, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(125, Byte), Integer))
-        Me.btnRefresh.Dock = System.Windows.Forms.DockStyle.Right
-        Me.btnRefresh.FlatAppearance.BorderSize = 0
-        Me.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnRefresh.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.btnRefresh.ForeColor = System.Drawing.Color.White
-        Me.btnRefresh.Location = New System.Drawing.Point(905, 15)
-        Me.btnRefresh.Name = "btnRefresh"
-        Me.btnRefresh.Size = New System.Drawing.Size(70, 40)
-        Me.btnRefresh.TabIndex = 1
-        Me.btnRefresh.Text = "Refresh"
-        Me.btnRefresh.UseVisualStyleBackColor = False
-        '
-        'btnClose
-        '
-        Me.btnClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(108, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(125, Byte), Integer))
-        Me.btnClose.Dock = System.Windows.Forms.DockStyle.Left
-        Me.btnClose.FlatAppearance.BorderSize = 0
-        Me.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnClose.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.btnClose.ForeColor = System.Drawing.Color.White
-        Me.btnClose.Location = New System.Drawing.Point(525, 15)
-        Me.btnClose.Name = "btnClose"
-        Me.btnClose.Size = New System.Drawing.Size(70, 40)
-        Me.btnClose.TabIndex = 5
-        Me.btnClose.Text = "Close"
-        Me.btnClose.UseVisualStyleBackColor = False
+        Me.btnTutup.BackColor = System.Drawing.Color.FromArgb(CType(CType(108, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(125, Byte), Integer))
+        Me.btnTutup.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnTutup.FlatAppearance.BorderSize = 0
+        Me.btnTutup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnTutup.Font = New System.Drawing.Font("Segoe UI", 10.0!, System.Drawing.FontStyle.Bold)
+        Me.btnTutup.ForeColor = System.Drawing.Color.White
+        Me.btnTutup.Location = New System.Drawing.Point(896, 15)
+        Me.btnTutup.Name = "btnTutup"
+        Me.btnTutup.Size = New System.Drawing.Size(79, 40)
+        Me.btnTutup.TabIndex = 1
+        Me.btnTutup.Text = "Tutup"
+        Me.btnTutup.UseVisualStyleBackColor = False
         '
         'pnlSearch
         '
@@ -376,8 +359,7 @@ Partial Class FormRentalList
     Friend WithEvents lblSearch As Label
     Friend WithEvents cmbFilter As ComboBox
     Friend WithEvents lblFilter As Label
-    Friend WithEvents btnRefresh As Button
-    Friend WithEvents btnClose As Button
+    Friend WithEvents btnTutup As Button
     Friend WithEvents btnReturn As Button
     Friend WithEvents btnDelete As Button
     Friend WithEvents pnlMain As Panel

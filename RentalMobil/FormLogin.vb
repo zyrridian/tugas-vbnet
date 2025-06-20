@@ -32,7 +32,7 @@ Public Class FormLogin
         ' Ambil username dan password dari textbox
         Dim username As String = txtUsername.Text.Trim()
         Dim password As String = txtPassword.Text.Trim()
-        
+
         ' Validasi: username dan password tidak boleh kosong
         If String.IsNullOrEmpty(username) OrElse String.IsNullOrEmpty(password) Then
             lblStatus.Text = "Username dan password harus diisi."
@@ -48,20 +48,20 @@ Public Class FormLogin
             End If
             Return
         End If
-        
+
         ' Mode online: verifikasi dengan database
         Try
             ' Buat query untuk login
             Dim query As String = "SELECT * FROM user WHERE username = @username AND password = @password AND status = 1"
-            
+
             ' Parameter untuk query
             Dim parameters As New Dictionary(Of String, Object)
             parameters.Add("@username", username)
             parameters.Add("@password", password)
-            
+
             ' Jalankan query
             Dim dt As DataTable = ModuleConnection.ExecuteQuery(query, parameters)
-            
+
             ' Jika data ditemukan
             If dt.Rows.Count > 0 Then
                 ' Update last_login
@@ -69,7 +69,7 @@ Public Class FormLogin
                 Dim updateParams As New Dictionary(Of String, Object)
                 updateParams.Add("@id", dt.Rows(0)("id"))
                 ModuleConnection.ExecuteNonQuery(updateQuery, updateParams)
-                
+
                 LoginSuccess()
             Else
                 lblStatus.Text = "Username atau password salah."
@@ -79,31 +79,27 @@ Public Class FormLogin
             lblStatus.Text = "Gagal login: " & ex.Message
         End Try
     End Sub
-    
+
     ' Proses setelah login berhasil
     Private Sub LoginSuccess()
         MessageBox.Show("Login berhasil!", "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        
+
         ' Bersihkan input dan reset label status
         lblStatus.Text = ""
-        
+
         ' Buka form utama
         Dim formUtama As New FormMain()
         formUtama.Show()
-        
+
         ' Sembunyikan form login
         Me.Hide()
     End Sub
 
-    ' Event saat tombol Reset/Batal diklik
+    ' Event saat tombol Tutup diklik
     Private Sub btnBatal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBatal.Click
-        ' Bersihkan input
-        txtUsername.Clear()
-        txtPassword.Clear()
-        lblStatus.Text = ""
-        txtUsername.Focus()
+        Me.Close()
     End Sub
-    
+
     ' Event untuk menampilkan atau menyembunyikan password
     Private Sub chkShowPassword_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowPassword.CheckedChanged
         ' Toggle passwordChar 
@@ -113,15 +109,14 @@ Public Class FormLogin
             txtPassword.PasswordChar = "*"c ' Sembunyikan password
         End If
     End Sub
-    
+
     ' Handle saat form ditutup
     Protected Overrides Sub OnFormClosed(ByVal e As FormClosedEventArgs)
         ' Jika form ini ditutup, tutup juga aplikasi
         If Application.OpenForms.Count = 1 Then
             Application.Exit()
         End If
-        
+
         MyBase.OnFormClosed(e)
     End Sub
-
 End Class

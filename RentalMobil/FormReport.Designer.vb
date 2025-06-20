@@ -22,9 +22,9 @@ Partial Class FormReport
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim ChartArea2 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
-        Dim Legend2 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
-        Dim Series2 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
+        Dim ChartArea3 As System.Windows.Forms.DataVisualization.Charting.ChartArea = New System.Windows.Forms.DataVisualization.Charting.ChartArea()
+        Dim Legend3 As System.Windows.Forms.DataVisualization.Charting.Legend = New System.Windows.Forms.DataVisualization.Charting.Legend()
+        Dim Series3 As System.Windows.Forms.DataVisualization.Charting.Series = New System.Windows.Forms.DataVisualization.Charting.Series()
         Me.pnlHeader = New System.Windows.Forms.Panel()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.tabReport = New System.Windows.Forms.TabControl()
@@ -249,17 +249,17 @@ Partial Class FormReport
         '
         'chartPendapatan
         '
-        ChartArea2.Name = "ChartArea1"
-        Me.chartPendapatan.ChartAreas.Add(ChartArea2)
+        ChartArea3.Name = "ChartArea1"
+        Me.chartPendapatan.ChartAreas.Add(ChartArea3)
         Me.chartPendapatan.Dock = System.Windows.Forms.DockStyle.Fill
-        Legend2.Name = "Legend1"
-        Me.chartPendapatan.Legends.Add(Legend2)
+        Legend3.Name = "Legend1"
+        Me.chartPendapatan.Legends.Add(Legend3)
         Me.chartPendapatan.Location = New System.Drawing.Point(3, 83)
         Me.chartPendapatan.Name = "chartPendapatan"
-        Series2.ChartArea = "ChartArea1"
-        Series2.Legend = "Legend1"
-        Series2.Name = "Pendapatan"
-        Me.chartPendapatan.Series.Add(Series2)
+        Series3.ChartArea = "ChartArea1"
+        Series3.Legend = "Legend1"
+        Series3.Name = "Pendapatan"
+        Me.chartPendapatan.Series.Add(Series3)
         Me.chartPendapatan.Size = New System.Drawing.Size(870, 305)
         Me.chartPendapatan.TabIndex = 1
         Me.chartPendapatan.Text = "Grafik Pendapatan"
@@ -335,7 +335,7 @@ Partial Class FormReport
         'btnPrint
         '
         Me.btnPrint.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(185, Byte), Integer))
+        Me.btnPrint.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(174, Byte), Integer), CType(CType(96, Byte), Integer))
         Me.btnPrint.FlatAppearance.BorderSize = 0
         Me.btnPrint.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnPrint.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)
@@ -350,7 +350,7 @@ Partial Class FormReport
         'btnTutup
         '
         Me.btnTutup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnTutup.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(57, Byte), Integer), CType(CType(43, Byte), Integer))
+        Me.btnTutup.BackColor = System.Drawing.Color.FromArgb(CType(CType(108, Byte), Integer), CType(CType(117, Byte), Integer), CType(CType(125, Byte), Integer))
         Me.btnTutup.FlatAppearance.BorderSize = 0
         Me.btnTutup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.btnTutup.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Bold)

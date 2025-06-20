@@ -43,7 +43,7 @@ Public Class FormCustomer
                 Dim id As Integer = Convert.ToInt32(row("id"))
                 Dim nama As String = row("nama").ToString()
                 Dim telepon As String = row("nomor_telepon").ToString()
-                Dim email As String = "" ' Email tidak ada di tabel pelanggan
+                Dim email As String = row("email").ToString()
                 Dim alamat As String = If(row("alamat") IsNot DBNull.Value, row("alamat").ToString(), "")
 
                 ' Tambahkan ke DataGridView
@@ -167,6 +167,10 @@ Public Class FormCustomer
                     Return
                 End If
 
+                ' Hapus semua data rental yang sudah selesai (Completed) milik pelanggan
+                Dim deleteRentalQuery As String = "DELETE FROM rental WHERE pelanggan_id = @id"
+                ModuleConnection.ExecuteNonQuery(deleteRentalQuery, parameters)
+
                 ' Hapus dari database
                 Dim deleteQuery As String = "DELETE FROM pelanggan WHERE id = @id"
                 ModuleConnection.ExecuteNonQuery(deleteQuery, parameters)
@@ -210,7 +214,7 @@ Public Class FormCustomer
             ' Isi form dengan data yang dipilih
             txtNama.Text = row("nama").ToString()
             txtTelepon.Text = row("nomor_telepon").ToString()
-            txtEmail.Text = "" ' Email tidak ada di database
+            txtEmail.Text = row("email").ToString()
             txtAlamat.Text = If(row("alamat") IsNot DBNull.Value, row("alamat").ToString(), "")
         Catch ex As Exception
             MessageBox.Show("Error loading selected data: " & ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
